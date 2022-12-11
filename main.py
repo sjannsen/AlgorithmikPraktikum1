@@ -7,6 +7,23 @@ from typing import List
 from PIL import Image
 import imagehash
 
+import time
+
+# import mysql.connector
+#
+# mydb = mysql.connector.connect(
+#     host="localhost",
+#     user="root",
+#     password="root"
+# )
+#
+# cursor = mydb.cursor()
+#
+# cursor.execute("CREATE DATABASE exercise1")
+# cursor.execute("CREATE TABLE gfg (hash VARCHAR(255), path VARCHAR(255))")
+# cursor.execute("SHOW DATABASE")
+# for x in cursor:
+#     print(x)
 
 def get_image_paths():
     # Project Location
@@ -24,13 +41,21 @@ def get_image_paths():
     return list_of_all_image_paths
 
 
+# setdefault()
+# When the setdefault() method is called for a given key, it checks if the key exists in the dictionary.
+# If the key does not exist, the setdefault() method creates the key and sets the default
+# value (an empty list in this case) as the value for the key. If the key already exists, the setdefault() method
+# returns the current value for the key. In either case, the append() method is used to add elements to the list
+# associated with the key.
+
+
 # list[[hash, path], [hash, path]...]
 def get_image_hashes(list_of_all_image_paths):
     list_of_image_hashes_with_paths = {}
     for path in list_of_all_image_paths:
         original_hash = imagehash.dhash(Image.open(path))
         hash_as_string = str(original_hash)
-        list_of_image_hashes_with_paths[hash_as_string] = path
+        list_of_image_hashes_with_paths.setdefault(hash_as_string, []).append(path)
     return list_of_image_hashes_with_paths
 
 
@@ -46,16 +71,44 @@ def get_image(image):
 list_of_paths = get_image_paths()
 list_of_images = get_image_hashes(list_of_paths)
 
-# Testing get() function
-image = get_image(Image.open('PetImages/Cat/8000.jpg'))
-if image == -1:
+# Testing get_image() function
+
+# First test
+# Set start time before function
+start_time = time.perf_counter()
+
+image_paths_found = get_image(Image.open('PetImages/Cat/0.jpg'))
+
+# Compute time passed while function call
+elapsed_time = time.perf_counter() - start_time
+print(f'Elapsed time while get_image(): {elapsed_time:.4f} seconds')
+
+if image_paths_found == None:
     print("IMAGE NOT FOUND")
 else:
-    image_found = Image.open(image)
-    image_found.show()
+    for path in image_paths_found:
+        image_found = Image.open(path)
+        image_found.show()
 print("DONE")
 
-# TODO: Implement tests with images out of collection
+
+# Second test
+# Set start time before function
+start_time = time.perf_counter()
+
+image_paths_found = get_image(Image.open('PetImages/Cat/11000.jpg'))
+
+# Compute time passed while function call
+elapsed_time = time.perf_counter() - start_time
+print(f'Elapsed time while get_image(): {elapsed_time:.4f} seconds')
+
+if image_paths_found == None:
+    print("IMAGE NOT FOUND")
+else:
+    for path in image_paths_found:
+        image_found = Image.open(path)
+        image_found.show()
+print("DONE")
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

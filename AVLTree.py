@@ -487,7 +487,7 @@ d_hash_avl_tree = AVLTree()
 add_difference_hashed_images_to_tree(get_image_paths(), d_hash_avl_tree)
 
 # Test dHash AVL tree
-image_to_find_path = "PetImages/Cat/0.jpg"
+image_to_find_path = "PetImages/Test/Yuumi_0.jpg"
 
 # Test getImage()
 image_found_with_get = d_hash_avl_tree.find(hash_image_to_key_with_difference_hash(image_to_find_path))
@@ -523,7 +523,7 @@ average_hash_avl_tree = AVLTree()
 add_average_hashed_images_to_tree(get_image_paths(), average_hash_avl_tree)
 
 # Test averageHash AVL tree
-image_to_find_path = "PetImages/Cat/0.jpg"
+image_to_find_path = "PetImages/Test/Yuumi_0.jpg"
 
 image_found_with_get = average_hash_avl_tree.find(hash_image_to_key_with_average_hash(image_to_find_path))
 if image_found_with_get is None:
@@ -558,7 +558,7 @@ p_hash_avl_tree = AVLTree()
 add_perceptual_hashed_images_to_tree(get_image_paths(), p_hash_avl_tree)
 
 # Test pHash AVL tree
-image_to_find_path = "PetImages/Cat/0.jpg"
+image_to_find_path = "PetImages/Test/Yuumi_0.jpg"
 
 image_found_with_get = p_hash_avl_tree.find(hash_image_to_key_with_perceptual_hash(image_to_find_path))
 if image_found_with_get is None:
